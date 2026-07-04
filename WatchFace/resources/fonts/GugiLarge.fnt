@@ -1,0 +1,24 @@
+info face="Gugi" size=-110 bold=0 italic=0 charset="" unicode=1 stretchH=100 smooth=1 aa=1 padding=0,0,0,0 spacing=1,1 outline=0
+common lineHeight=111 base=95 scaleW=987 scaleH=103 pages=1 packed=0 alphaChnl=1 redChnl=0 greenChnl=0 blueChnl=0
+page id=0 file="GugiLarge_0.png"
+chars count=20
+char id=48   x=0   y=0     width=47    height=87     xoffset=8     yoffset=8    xadvance=62    page=0  chnl=15
+char id=49   x=49   y=0     width=32    height=91     xoffset=8     yoffset=6    xadvance=62    page=0  chnl=15
+char id=50   x=83   y=0     width=49    height=87     xoffset=8     yoffset=8    xadvance=62    page=0  chnl=15
+char id=51   x=134   y=0     width=47    height=87     xoffset=8     yoffset=8    xadvance=62    page=0  chnl=15
+char id=52   x=183   y=0     width=56    height=91     xoffset=3     yoffset=7    xadvance=62    page=0  chnl=15
+char id=53   x=241   y=0     width=48    height=87     xoffset=7     yoffset=8    xadvance=62    page=0  chnl=15
+char id=54   x=291   y=0     width=47    height=87     xoffset=8     yoffset=8    xadvance=62    page=0  chnl=15
+char id=55   x=340   y=0     width=55    height=89     xoffset=3     yoffset=8    xadvance=62    page=0  chnl=15
+char id=56   x=397   y=0     width=50    height=87     xoffset=7     yoffset=8    xadvance=62    page=0  chnl=15
+char id=57   x=449   y=0     width=47    height=87     xoffset=8     yoffset=8    xadvance=62    page=0  chnl=15
+char id=58   x=498   y=0     width=18    height=66     xoffset=8     yoffset=29    xadvance=34    page=0  chnl=15
+char id=47   x=518   y=0     width=37    height=103     xoffset=2     yoffset=4    xadvance=41    page=0  chnl=15
+char id=176   x=557   y=0     width=27    height=27     xoffset=0     yoffset=4    xadvance=32    page=0  chnl=15
+char id=45   x=586   y=0     width=32    height=11     xoffset=2     yoffset=46    xadvance=36    page=0  chnl=15
+char id=37   x=620   y=0     width=85    height=94     xoffset=5     yoffset=4    xadvance=93    page=0  chnl=15
+char id=32   x=0   y=0     width=0    height=0     xoffset=0     yoffset=0    xadvance=33    page=0  chnl=15
+char id=78   x=707   y=0     width=62    height=89     xoffset=9     yoffset=7    xadvance=79    page=0  chnl=15
+char id=69   x=771   y=0     width=52    height=87     xoffset=9     yoffset=8    xadvance=64    page=0  chnl=15
+char id=83   x=825   y=0     width=59    height=87     xoffset=9     yoffset=8    xadvance=76    page=0  chnl=15
+char id=87   x=886   y=0     width=99    height=90     xoffset=2     yoffset=6    xadvance=101    page=0  chnl=15

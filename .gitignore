@@ -1,0 +1,11 @@
+# Connect IQ developer signing key - never commit
+keys/
+
+# Build output
+**/bin/
+*.prg
+*.iq
+
+# Editor
+.vscode/
+.claude/
