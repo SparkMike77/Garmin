@@ -1,3 +1,0 @@
-<layout id="MainLayout" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://developer.garmin.com/downloads/connect-iq/resources.xsd">
-    <label id="PromptLabel" x="center" y="center" text="@Strings.Prompt" color="Graphics.COLOR_GREEN" justification="Graphics.TEXT_JUSTIFY_CENTER" />
-</layout>

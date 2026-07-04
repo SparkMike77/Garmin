@@ -31,7 +31,11 @@ class HomeAssistantClient {
                 "Content-Type" => Communications.REQUEST_CONTENT_TYPE_JSON,
                 "Authorization" => "Bearer " + token
             },
-            :responseType => Communications.HTTP_RESPONSE_CONTENT_TYPE_JSON
+            // Service calls respond with every entity state HA touched as a
+            // side effect, which can be large enough to blow the device's
+            // JSON-parse budget (-300 NETWORK_RESPONSE_OUT_OF_MEMORY).
+            // Callers only care about the response code, so skip the parse.
+            :responseType => Communications.HTTP_RESPONSE_CONTENT_TYPE_TEXT_PLAIN
         };
 
         Communications.makeWebRequest(url, params, options, callback);

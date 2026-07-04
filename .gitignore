@@ -1,6 +1,9 @@
 # Connect IQ developer signing key - never commit
 keys/
 
+# Real HA URL/token live here locally; settings.xml.template holds placeholders
+**/resources/settings/settings.xml
+
 # Build output
 **/bin/
 *.prg

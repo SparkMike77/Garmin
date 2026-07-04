@@ -15,7 +15,7 @@ class HAControlApp extends Application.AppBase {
     }
 
     function getInitialView() as [Views] or [Views, InputDelegates] {
-        return [ new HAControlView(), new HAControlDelegate() ];
+        return [ new Rez.Menus.DeviceMenu(), new HAControlMenuDelegate() ];
     }
 
 }

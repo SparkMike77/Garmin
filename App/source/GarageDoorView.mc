@@ -9,11 +9,15 @@ class GarageDoorView extends WatchUi.View {
 
     hidden var _doorState as String;
     hidden var _refreshTimer as Timer.Timer?;
+    hidden var _watchdogTimer as Timer.Timer?;
+    hidden var _awaitingResponse as Boolean;
 
     function initialize() {
         View.initialize();
-        _doorState = "--";
+        _doorState = "Loading...";
         _refreshTimer = null;
+        _watchdogTimer = null;
+        _awaitingResponse = false;
     }
 
     function onLayout(dc as Dc) as Void {
@@ -38,24 +42,71 @@ class GarageDoorView extends WatchUi.View {
         dc.drawText(centerX, height * 0.30, Graphics.FONT_MEDIUM, _doorState,
             Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER);
 
+        // Diagnostic line: confirms which entity/host this build actually has
+        // configured, since Connect IQ persists Properties across sideloads
+        // (a stale value here would show even after settings.xml changes).
+        var entityId = Properties.getValue("ha_garage_entity") as String?;
+        var url = Properties.getValue("ha_url") as String?;
+        var host = (url == null) ? "no url" : url;
+        var entityLabel = (entityId == null) ? "no entity" : entityId;
+        dc.setColor(Graphics.COLOR_DK_GRAY, Graphics.COLOR_TRANSPARENT);
+        dc.drawText(centerX, height * 0.38, Graphics.FONT_XTINY, entityLabel,
+            Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER);
+        dc.drawText(centerX, height * 0.83, Graphics.FONT_XTINY, host,
+            Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER);
+
         drawButton(dc, GarageDoorView.getUpButtonRect(), "UP");
         drawButton(dc, GarageDoorView.getDownButtonRect(), "DOWN");
     }
 
     function onHide() as Void {
-        if (_refreshTimer != null) {
-            _refreshTimer.stop();
-            _refreshTimer = null;
+        stopTimer(_refreshTimer);
+        _refreshTimer = null;
+        stopTimer(_watchdogTimer);
+        _watchdogTimer = null;
+    }
+
+    function stopTimer(timer as Timer.Timer?) as Void {
+        if (timer != null) {
+            timer.stop();
         }
     }
 
-    // Pulls the entity's actual state from Home Assistant.
+    // Pulls the entity's actual state from Home Assistant. _awaitingResponse
+    // lets the watchdog tell "callback never fired" apart from "callback
+    // already handled it" regardless of what _doorState currently reads.
     function refreshState() as Void {
-        var entityId = Properties.getValue("ha_garage_entity") as String;
+        var entityId = Properties.getValue("ha_garage_entity") as String?;
+        if (entityId == null || entityId.equals("")) {
+            _doorState = "No entity configured";
+            WatchUi.requestUpdate();
+            return;
+        }
+
+        _awaitingResponse = true;
+        if (_watchdogTimer == null) {
+            _watchdogTimer = new Timer.Timer();
+        }
+        _watchdogTimer.start(method(:onWatchdogFired), 15000, false);
+
         HomeAssistantClient.getState(entityId, method(:onStateResult));
     }
 
+    function onWatchdogFired() as Void {
+        if (_awaitingResponse) {
+            _awaitingResponse = false;
+            _doorState = "Timeout: no response";
+            WatchUi.requestUpdate();
+        }
+    }
+
     function onStateResult(responseCode as Number, data as Dictionary?) as Void {
+        if (!_awaitingResponse) {
+            return;
+        }
+        _awaitingResponse = false;
+        stopTimer(_watchdogTimer);
+
         if (responseCode == -1) {
             _doorState = "Not configured";
         } else if (responseCode == 200 && data != null) {

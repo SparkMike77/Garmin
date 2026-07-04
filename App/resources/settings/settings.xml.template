@@ -1,0 +1,35 @@
+<resources xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://developer.garmin.com/downloads/connect-iq/resources.xsd">
+
+    <properties>
+        <property id="ha_url" type="string"></property>
+        <property id="ha_token" type="string"></property>
+        <property id="ha_garage_entity" type="string">cover.garage_door</property>
+        <property id="ha_light_entity" type="string">light.living_room</property>
+    </properties>
+
+    <strings>
+        <string id="ha_url_title">Home Assistant URL</string>
+        <string id="ha_token_title">Long-Lived Access Token</string>
+        <string id="ha_garage_entity_title">Garage Door Entity ID</string>
+        <string id="ha_light_entity_title">Light Entity ID</string>
+    </strings>
+
+    <settings>
+        <setting propertyKey="@Properties.ha_url" title="@Strings.ha_url_title">
+            <settingConfig type="alphaNumeric" />
+        </setting>
+
+        <setting propertyKey="@Properties.ha_token" title="@Strings.ha_token_title">
+            <settingConfig type="alphaNumeric" />
+        </setting>
+
+        <setting propertyKey="@Properties.ha_garage_entity" title="@Strings.ha_garage_entity_title">
+            <settingConfig type="alphaNumeric" />
+        </setting>
+
+        <setting propertyKey="@Properties.ha_light_entity" title="@Strings.ha_light_entity_title">
+            <settingConfig type="alphaNumeric" />
+        </setting>
+    </settings>
+
+</resources>
