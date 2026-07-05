@@ -44,7 +44,8 @@ class HAWatchFaceView extends WatchUi.WatchFace {
 
         drawTime(dc, centerX, centerY);
 
-        drawSteps(dc, centerX, centerY, markerRadius, 1);
+        var dateAnchor = drawDate(dc, centerX, centerY, markerRadius, 11);
+        drawSteps(dc, centerX, centerY, markerRadius, 1, dateAnchor[1]);
         drawStairs(dc, centerX, centerY, markerRadius, 2);
         drawBluetoothStatus(dc, centerX, centerY, markerRadius, 3);
         drawHeartRate(dc, centerX, centerY, markerRadius, 4);
@@ -54,7 +55,6 @@ class HAWatchFaceView extends WatchUi.WatchFace {
         drawCompass(dc, centerX, centerY, markerRadius, 8);
         drawHomeAssistantStatus(dc, centerX, centerY, markerRadius, 9);
         drawWatchBattery(dc, centerX, centerY, markerRadius, 10);
-        drawDate(dc, centerX, centerY, markerRadius, 11);
     }
 
     function onHide() as Void {
@@ -170,14 +170,18 @@ class HAWatchFaceView extends WatchUi.WatchFace {
     }
 
     // ---- Step count with a footprints icon, at the 1-position ----
-    function drawSteps(dc as Dc, centerX as Number, centerY as Number, baseRadius as Numeric, hour as Number) as Void {
+    // alignY pins this row to the same height as the date at the mirrored
+    // 11-position.
+    function drawSteps(dc as Dc, centerX as Number, centerY as Number, baseRadius as Numeric, hour as Number, alignY as Number) as Void {
         var info = ActivityMonitor.getInfo();
         var steps = info.steps;
         var stepsString = (steps != null) ? steps.toString() : "--";
 
         var p = iconTextPoint(dc, centerX, centerY, baseRadius, hour, 14, 8, 8, stepsString, _smallFont);
-        var x = p[0];
-        var y = p[1];
+        var charWidth = dc.getTextWidthInPixels("0", _smallFont);
+        var direction = (centerX > p[0]) ? 1 : -1;
+        var x = p[0] + (charWidth * direction);
+        var y = alignY;
 
         drawFootprintsIcon(dc, x - 14, y);
 
@@ -528,7 +532,9 @@ class HAWatchFaceView extends WatchUi.WatchFace {
     }
 
     // ---- Date, DD/MM, at the 11-position ----
-    function drawDate(dc as Dc, centerX as Number, centerY as Number, baseRadius as Numeric, hour as Number) as Void {
+    // Returns the anchor point used, so the steps counter at the mirrored
+    // 1-position can align its row to this one.
+    function drawDate(dc as Dc, centerX as Number, centerY as Number, baseRadius as Numeric, hour as Number) as Array<Number> {
         var today = Gregorian.info(Time.now(), Time.FORMAT_SHORT);
         var dateString = Lang.format("$1$/$2$", [today.day.format("%02d"), today.month.format("%02d")]);
 
@@ -537,6 +543,8 @@ class HAWatchFaceView extends WatchUi.WatchFace {
         dc.setColor(Graphics.COLOR_DK_GREEN, Graphics.COLOR_TRANSPARENT);
         dc.drawText(p[0], p[1], _smallFont, dateString,
             Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER);
+
+        return p;
     }
 
 }
