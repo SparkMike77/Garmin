@@ -2,5 +2,6 @@
     <fonts>
         <font id="GugiLarge" filename="GugiLarge.fnt" />
         <font id="GugiSmall" filename="GugiSmall.fnt" />
+        <font id="GugiTiny" filename="GugiTiny.fnt" />
     </fonts>
 </resources>

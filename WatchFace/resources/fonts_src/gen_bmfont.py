@@ -68,5 +68,5 @@ def generate(ttf_path, size, chars, out_fnt, out_png, png_filename_in_fnt):
 
 if __name__ == "__main__":
     ttf = sys.argv[1]
-    chars = list("0123456789:/°- ")
+    chars = list("0123456789:/°- %NESWkpa.")
     generate(ttf, int(sys.argv[2]), chars, sys.argv[3], sys.argv[4], sys.argv[4].split("/")[-1])

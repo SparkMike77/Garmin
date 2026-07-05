@@ -12,3 +12,6 @@ keys/
 # Editor
 .vscode/
 .claude/
+
+# Python bytecode cache
+__pycache__/
