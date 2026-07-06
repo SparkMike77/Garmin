@@ -5,7 +5,7 @@
    - [x] Heartrate (4-position)
    - [x] Step count (1-position)
    - [x] Stair count (2-position)
-   - [ ] Weather forecast (removed from current layout to make room for Bluetooth/HA status - not in the 12-position spec)
+   - [x] Weather forecast (5-position)
    - [x] Compass (8-position)
    - [x] Watch battery (10-position)
    - [x] Bluetooth connection status to phone (6-position)
@@ -25,6 +25,6 @@
 
 4) Create connection to HomeAssistant from App and Watchface
    - [ ] GPS from phone to HA?
-   - [ ] Display device state
+   - [X] Display device state - ehhh, Kind of?  Didn't like.
    - [x] Garage Door view scaffolded (state label + Up/Down buttons) - placeholder actions only, not yet wired to real HA REST calls
    - [ ] Lights control view
